@@ -86,16 +86,120 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <html>
 <head>
     <title>Menu Details</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 20px;
+            color: #333;
+        }
+
+        h1 {
+            text-align: center;
+            color: #d9534f;
+        }
+
+        a {
+            display: inline-block;
+            margin: 10px 0;
+            text-decoration: none;
+            background-color: #5bc0de;
+            color: white;
+            padding: 10px 15px;
+            border-radius: 5px;
+        }
+
+        a:hover {
+            background-color: #31b0d5;
+        }
+
+        img {
+            display: block;
+            margin: 20px auto;
+            border-radius: 8px;
+            max-width: 200px;
+        }
+
+        form {
+            max-width: 600px;
+            margin: 20px auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        h3 {
+            margin-top: 20px;
+            color: #333;
+        }
+
+        h4 {
+            margin-bottom: 10px;
+            color: #666;
+        }
+
+        textarea, input[type="number"] {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 14px;
+        }
+
+        textarea {
+            resize: vertical;
+            height: 100px;
+        }
+
+        button {
+            display: inline-block;
+            margin: 10px 5px;
+            padding: 10px 20px;
+            background-color: #5cb85c;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        button:hover {
+            background-color: #4cae4c;
+        }
+
+        button[name="delete_item"] {
+            background-color: #d9534f;
+        }
+
+        button[name="delete_item"]:hover {
+            background-color: #c9302c;
+        }
+
+        .options-group {
+            margin: 15px 0;
+        }
+
+        .options-group div {
+            margin: 5px 0;
+        }
+
+        .options-group input[type="radio"] {
+            margin-right: 10px;
+        }
+    </style>
 </head>
 <body>
-<a href="menulist.php?table=<?php echo $_SESSION['table'] ?>">ย้อนกลับ</a>
-    <h1><?php echo $menu['menu_name']; ?></h1>
-    <img src="<?php echo $menu['menu_pic']; ?>" alt="Image" width="200">
+    <a href="menulist.php?table=<?php echo $_SESSION['table'] ?>">ย้อนกลับ</a>
+    <h1><?php echo htmlspecialchars($menu['menu_name']); ?></h1>
+    <img src="<?php echo htmlspecialchars($menu['menu_pic']); ?>" alt="Image">
     <form method="POST">
         <h3>ตัวเลือก</h3>
         <?php if ($menu_se) { ?>
             <?php foreach ($menu_se as $group => $options_group) { ?>
-                <div>
+                <div class="options-group">
                     <h4><?php echo htmlspecialchars($group); ?></h4>
                     <?php foreach ($options_group as $option => $price) { ?>
                         <?php
@@ -113,15 +217,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <?php } ?>
 
         <h3>จำนวน</h3>
-        <input type="number" name="quantity" value="<?php echo $quantity; ?>" min="1" required>
+        <input type="number" name="quantity" value="<?php echo htmlspecialchars($quantity); ?>" min="1" required>
 
         <h3>รายละเอียดเพิ่มเติม</h3>
         <textarea name="details"><?php echo htmlspecialchars($details); ?></textarea>
 
         <button type="submit">บันทึก</button>
         <?php if ($edit_index !== null) { ?>
-            <button type="submit" name="delete_item" style="background-color: red; color: white;">ลบ</button>
+            <button type="submit" name="delete_item">ลบ</button>
         <?php } ?>
     </form>
 </body>
 </html>
+

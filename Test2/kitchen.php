@@ -27,49 +27,100 @@ $orders = $stmt->get_result();
 <head>
     <title>Kitchen Orders</title>
     <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 20px;
+            color: #333;
+        }
+
+        h1 {
+            text-align: center;
+            color: #d9534f;
+            margin-bottom: 20px;
+        }
+
         table {
             width: 100%;
             border-collapse: collapse;
+            margin-top: 20px;
+            background-color: #fff;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            overflow: hidden;
         }
-        table, th, td {
-            border: 1px solid black;
-        }
+
         th, td {
-            padding: 10px;
-            text-align: left;
+            padding: 15px;
+            text-align: center;
+            border-bottom: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #f8f8f8;
+            color: #333;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        tr:last-child td {
+            border-bottom: none;
+        }
+
+        td {
+            font-size: 14px;
+        }
+
+        .no-options {
+            color: #888;
+            font-style: italic;
         }
     </style>
 </head>
 <body>
     <h1>Kitchen Orders</h1>
     <table>
-        <tr>
-            <th>Menu</th>
-            <th>Options</th>
-            <th>Quantity</th>
-            <th>Table</th>
-            <th>Time</th>
-        </tr>
-        <?php while ($order = $orders->fetch_assoc()) { ?>
+        <thead>
             <tr>
-                <td><?php echo htmlspecialchars($order['menu_name']); ?></td>
-                <td>
-                    <?php
-                    $options = json_decode($order['menu_se'], true);
-                    if ($options) {
-                        foreach ($options as $key => $value) {
-                            echo htmlspecialchars($key) . ": " . htmlspecialchars($value) . "<br>";
-                        }
-                    } else {
-                        echo "No options";
-                    }
-                    ?>
-                </td>
-                <td><?php echo $order['quantity']; ?></td>
-                <td><?php echo htmlspecialchars($order['table_number']); ?></td>
-                <td><?php echo date('H:i:s', strtotime($order['timestmp'])); ?></td>
+                <th>Menu</th>
+                <th>Options</th>
+                <th>Quantity</th>
+                <th>Table</th>
+                <th>Time</th>
             </tr>
-        <?php } ?>
+        </thead>
+        <tbody>
+            <?php if ($orders->num_rows > 0) { ?>
+                <?php while ($order = $orders->fetch_assoc()) { ?>
+                    <tr>
+                        <td><?php echo htmlspecialchars($order['menu_name']); ?></td>
+                        <td>
+                            <?php
+                            $options = json_decode($order['menu_se'], true);
+                            if ($options) {
+                                foreach ($options as $key => $value) {
+                                    echo htmlspecialchars($key) . ": " . htmlspecialchars($value) . "<br>";
+                                }
+                            } else {
+                                echo "<span class='no-options'>No options</span>";
+                            }
+                            ?>
+                        </td>
+                        <td><?php echo $order['quantity']; ?></td>
+                        <td><?php echo htmlspecialchars($order['table_number']); ?></td>
+                        <td><?php echo date('H:i:s', strtotime($order['timestmp'])); ?></td>
+                    </tr>
+                <?php } ?>
+            <?php } else { ?>
+                <tr>
+                    <td colspan="5" style="text-align: center; color: #888;">No orders available</td>
+                </tr>
+            <?php } ?>
+        </tbody>
     </table>
 </body>
 </html>
+

@@ -90,29 +90,95 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     
     <title>Confirm Menu</title>
     <style>
-        table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-        table, th, td {
-            border: 1px solid black;
-        }
-        th, td {
-            padding: 10px;
-            text-align: left;
-        }
-        .delete-button {
-            background-color: red;
-            color: white;
-            border: none;
-            padding: 5px 10px;
-            cursor: pointer;
-        }
-        .edit-button {
-            padding: 5px 10px;
-            cursor: pointer;
-        }
-    </style>
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f4f4f9;
+        margin: 0;
+        padding: 20px;
+        color: #333;
+    }
+
+    h1 {
+        text-align: center;
+        color: #d9534f;
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 20px 0;
+    }
+
+    th, td {
+        padding: 15px;
+        border: 1px solid #ddd;
+        text-align: center;
+    }
+
+    th {
+        background-color: #f8f8f8;
+    }
+
+    tr:nth-child(even) {
+        background-color: #f9f9f9;
+    }
+
+    .delete-button {
+        background-color: #d9534f;
+        color: #fff;
+        border: none;
+        padding: 8px 12px;
+        cursor: pointer;
+        border-radius: 4px;
+    }
+
+    .delete-button:hover {
+        background-color: #c9302c;
+    }
+
+    .edit-button {
+        background-color: #5bc0de;
+        color: #fff;
+        border: none;
+        padding: 8px 12px;
+        cursor: pointer;
+        border-radius: 4px;
+    }
+
+    .edit-button:hover {
+        background-color: #31b0d5;
+    }
+
+    button[name="confirm_order"] {
+        display: block;
+        margin: 20px auto;
+        background-color: #5cb85c;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        font-size: 16px;
+        cursor: pointer;
+        border-radius: 5px;
+    }
+
+    button[name="confirm_order"]:hover {
+        background-color: #449d44;
+    }
+
+    a {
+        display: inline-block;
+        margin: 10px 0;
+        text-decoration: none;
+        background-color: #5bc0de;
+        color: white;
+        padding: 10px 15px;
+        border-radius: 5px;
+    }
+
+    a:hover {
+        background-color: #31b0d5;
+    }
+</style>
 </head>
 <body>
 <a href="menulist.php?table=<?php echo $_SESSION['table'] ?>">เลือกซื้อเพิ่ม</a>

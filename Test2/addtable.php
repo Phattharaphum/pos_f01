@@ -30,10 +30,84 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <html>
 <head>
     <title>Add Table</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 20px;
+            color: #333;
+        }
+
+        h1 {
+            text-align: center;
+            color: #d9534f;
+            margin-bottom: 20px;
+        }
+
+        form {
+            max-width: 400px;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        form label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+        }
+
+        form input[type="number"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        form button {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            background-color: #5cb85c;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        form button:hover {
+            background-color: #4cae4c;
+        }
+
+        .error {
+            color: red;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        a {
+            display: block;
+            text-align: center;
+            margin-top: 20px;
+            text-decoration: none;
+            color: #5bc0de;
+        }
+
+        a:hover {
+            color: #31b0d5;
+        }
+    </style>
 </head>
 <body>
     <h1>Add New Table</h1>
-    <?php if (isset($error)) { echo "<p style='color:red;'>$error</p>"; } ?>
+    <?php if (isset($error)) { ?>
+        <p class="error"><?php echo $error; ?></p>
+    <?php } ?>
     <form method="POST">
         <label>Table Number:</label>
         <input type="number" name="table_number" required>
@@ -42,3 +116,4 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <a href="tablestatus.php">Back to Table Status</a>
 </body>
 </html>
+
